@@ -12,84 +12,84 @@ Para iniciar o projeto, siga estas etapas:
 7. O projeto estará pronto para uso, e você poderá começar a adicionar informações sobre livros, autores, editoras e gêneros.
 
 
-# Banco de Dados da Biblioteca
-# Projeto de Banco de Dados de Livros
-Este é um projeto de banco de dados que modela informações sobre livros, autores, editoras e gêneros. O banco de dados é projetado para armazenar detalhes sobre livros, seus autores, editoras e gêneros, além de estabelecer relacionamentos entre eles.
+### Gerenciamento de Livros - Esquema de Banco de Dados
+Este repositório contém o esquema de banco de dados para um sistema de gerenciamento de livros. O esquema consiste em três tabelas principais: genero, editora e livros, que armazenam informações sobre gêneros de livros, editoras e detalhes dos próprios livros.
 
-## Esquema do Banco de Dados
-O banco de dados consiste nas seguintes tabelas:
+## Tabelas
+Tabela genero
+Armazena informações sobre os gêneros dos livros.
 
-### Tabela: Livros
-id: Chave primária que identifica cada livro.
-Título: Título do livro.
-ISBN: Número de identificação do livro.
-Ano de Publicação: Ano de publicação do livro.
-Idioma: Idioma do livro.
+## Coluna	Tipo	Descrição
+id_genero	int	Chave primária
+nome_genero	varchar(255)	Nome do gênero do livro
+Tabela editora
+Armazena informações sobre as editoras dos livros.
 
-### Quantidade Disponível: Quantidade disponível do livro.
-Tabela: Autor
-id_autor: Chave primária que identifica cada autor.
-nome: Nome do autor.
-data_nascimento: Data de nascimento do autor.
-nacionalidade: Nacionalidade do autor.
+## Coluna	Tipo	Descrição
+id_editora	int	Chave primária
+nome_editora	varchar(255)	Nome da editora do livro
+Tabela livros
+Armazena informações sobre os livros disponíveis.
 
-### Tabela: Editora
-id_editora: Chave primária que identifica cada editora.
-nome: Nome da editora.
-localização: Localização da editora.
+## Coluna	Tipo	Descrição
+id_livros	int	Chave primária
+titulo	varchar(255)	Título do livro
+autor_id	int	ID do autor (chave estrangeira)
+genero_id	int	ID do gênero (chave estrangeira)
+editora_id	int	ID da editora (chave estrangeira)
+Relacionamentos
 
-### Tabela: Gênero
-id_gênero: Chave primária que identifica cada gênero.
-nome: Nome do gênero.
+A tabela livros possui chaves estrangeiras que se relacionam com as tabelas autor, genero e editora.
+Os relacionamentos possuem a opção ON DELETE CASCADE, o que significa que, se um autor, gênero ou editora for excluído, os livros relacionados também serão excluídos automaticamente.
+Considerações
+Este esquema de banco de dados oferece uma base sólida para o gerenciamento de livros, permitindo que você armazene informações sobre gêneros, editoras e detalhes dos livros de forma organizada. Certifique-se de ajustar e expandir esse esquema de acordo com suas necessidades específicas.
 
-### Tabela Intermediária: LivroAutor
-id_livroautor: Chave primária que identifica cada relacionamento livro-autor.
-id_livro: Chave estrangeira referenciando a tabela Livros.
-id_autor: Chave estrangeira referenciando a tabela Autor.
+Sinta-se à vontade para clonar, modificar e usar este esquema para o seu próprio projeto de gerenciamento de livros. Se tiver alguma dúvida ou sugestão de melhoria, sinta-se à vontade para abrir uma issue neste repositório.
 
 
-# Banco de Dados da Biblioteca
-# Projeto de Banco de Dados de Livros
+### Initializing the Project
+To start the project, follow these steps:
 
-Este é um projeto de banco de dados que modela informações sobre livros, autores, editoras e gêneros. O banco de dados é projetado para armazenar detalhes sobre livros, seus autores, editoras e gêneros, além de estabelecer relacionamentos entre eles.
+Clone this repository to your computer.
+Make sure you have a MySQL database management system set up and running on your machine.
+Create a database named "Library.sql" in your database management system.
+Import the provided SQL files in the "SQL" folder of this repository to create the tables and set up the database schema.
+Configure database connections in the config.yml or similar configuration file, if necessary.
+Execute the provided initialization script (DataPopulation.sql) to populate the project.
+The project will be ready to use, and you can start adding information about books, authors, publishers, and genres.
+Book Management - Database Schema
+This repository contains the database schema for a book management system. The schema consists of three main tables: genre, publisher, and books, which store information about book genres, publishers, and details of the books themselves.
 
-# Book Database Project
+## Tables
+Table genre
+Stores information about book genres.
 
-This is a database project that models information about books, authors, publishers, and genres. The database is designed to store details about books, their authors, publishers, and genres, and also establishes relationships among them.
+## Column	Type	Description
+id_genre	int	Primary Key
+genre_name	varchar(255)	Name of the book genre
+Table publisher
+Stores information about book publishers.
 
-## Database Schema
+## Column	Type	Description
+id_publisher	int	Primary Key
+publisher_name	varchar(255)	Name of the book publisher
+Table books
+Stores information about available books.
 
-The database consists of the following tables:
+## Column	Type	Description
+id_books	int	Primary Key
+title	varchar(255)	Title of the book
+author_id	int	Author ID (foreign key)
+genre_id	int	Genre ID (foreign key)
+publisher_id	int	Publisher ID (foreign key)
+Relationships
+The books table has foreign keys that relate to the author, genre, and publisher tables.
+Relationships have the ON DELETE CASCADE option, which means that if an author, genre, or publisher is deleted, related books will also be automatically deleted.
+Considerations
+This database schema provides a solid foundation for book management, allowing you to store information about genres, publishers, and book details in an organized manner. Be sure to adjust and expand this schema according to your specific needs.
 
-### Table: Books
-- `id`: Primary key that identifies each book.
-- `Title`: Title of the book.
-- `ISBN`: Identification number of the book.
-- `Publication Year`: Year of publication of the book.
-- `Language`: Language of the book.
-- `Available Quantity`: Available quantity of the book.
+Feel free to clone, modify, and use this schema for your own book management project. If you have any questions or suggestions for improvement, please feel free to open an issue in this repository.
 
-### Table: Author
-- `author_id`: Primary key that identifies each author.
-- `name`: Name of the author.
-- `birth_date`: Birth date of the author.
-- `nationality`: Nationality of the author.
 
-### Table: Publisher
-- `publisher_id`: Primary key that identifies each publisher.
-- `name`: Name of the publisher.
-- `location`: Location of the publisher.
 
-### Table: Genre
-- `genre_id`: Primary key that identifies each genre.
-- `name`: Name of the genre.
 
-### Intermediate Table: BookAuthor
-- `bookauthor_id`: Primary key that identifies each book-author relationship.
-- `book_id`: Foreign key referencing the Books table.
-- `author_id`: Foreign key referencing the Author table.
-
-### Intermediate Table: BookGenre
-- `bookgenre_id`: Primary key that identifies each book-genre relationship.
-- `book_id`: Foreign key referencing the Books table.
-- `genre_id`: Foreign key referencing the Genre table.
