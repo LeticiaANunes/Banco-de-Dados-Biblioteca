@@ -1,48 +1,50 @@
--- Tabela Livros: Armazena informações sobre os livros disponíveis
-CREATE TABLE `Livros` (
-  `id` int PRIMARY KEY,
-  `Titulo` varchar(255),
-  `ISBN` varchar(255),
-  `ano_publicacao` date,
-  `idioma` varchar(255),
-  `quantidade_disponivel` int
-);
+-- CRIAR SCHEMA
+CREATE SCHEMA IF NOT EXISTS `biblioteca` DEFAULT CHARACTER SET utf8;
+USE `biblioteca`;
 
 -- Tabela Autor: Armazena informações sobre os autores dos livros
-CREATE TABLE `Autor` (
-  `autor_id` int PRIMARY KEY,
-  `nome` varchar(255),
-  `data_nascimento` date,
-  `nacionalidade` varchar(255)
-);
-
--- Tabela Editora: Armazena informações sobre as editoras dos livros
-CREATE TABLE `Editora` (
-  `editora_id` int PRIMARY KEY,
-  `nome` varchar(255),
-  `local` varchar(255)
+CREATE TABLE IF NOT EXISTS `autor` (
+  `id_autor` INT AUTO_INCREMENT,
+  `nome_autor` VARCHAR(255) NOT NULL,
+  -- `data_nascimento` date,
+  -- `nacionalidade` varchar(255)
+  PRIMARY KEY(`id_autor`)
 );
 
 -- Tabela Genero: Armazena informações sobre os gêneros dos livros
-CREATE TABLE `Genero` (
-  `genero_id` int PRIMARY KEY,
-  `nome` varchar(255)
+CREATE TABLE IF NOT EXISTS `genero` (
+  `id_genero` int PRIMARY KEY AUTO_INCREMENT,
+  `nome_genero` varchar(255) NOT NULL
 );
 
--- Tabela intermediária LivroAutor: Relaciona livros a autores
-CREATE TABLE `LivroAutor` (
-  `livroautor_id` int PRIMARY KEY,
-  `livro_id` int,
-  `autor_id` int,
-  FOREIGN KEY (`livro_id`) REFERENCES `Livros` (`id`),
-  FOREIGN KEY (`autor_id`) REFERENCES `Autor` (`autor_id`)
-);
+-- Tabela Editora: Armazena informações sobre as editoras dos livros
+CREATE TABLE IF NOT EXISTS `editora` (
+  `id_editora` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `nome_editora` varchar(255) NOT NULL
+  -- `local` varchar(255)
+)
+ENGINE InnoDB;
 
--- Tabela intermediária LivroGenero: Relaciona livros a gêneros
-CREATE TABLE `LivroGenero` (
-  `livrogenero_id` int PRIMARY KEY,
-  `livro_id` int,
-  `genero_id` int,
-  FOREIGN KEY (`livro_id`) REFERENCES `Livros` (`id`),
-  FOREIGN KEY (`genero_id`) REFERENCES `Genero` (`genero_id`)
-);
+
+-- Tabela Livros: Armazena informações sobre os livros disponíveis
+CREATE TABLE IF NOT EXISTS `livros` (
+  `id_livros` INT NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) NOT NULL,
+  `autor_id` INT NOT NULL,
+  `genero_id` INT NOT NULL,
+  `editora_id` INT NOT NULL,
+  PRIMARY KEY (`id_livros`, `autor_id`, `genero_id`, `editora_id`),
+  CONSTRAINT `fk_autor_livros`
+	FOREIGN KEY (`autor_id`)
+    REFERENCES `biblioteca`.`autor` (`id_autor`)
+    ON DELETE CASCADE,
+  CONSTRAINT `fk_genero_livros`
+	FOREIGN KEY (`genero_id`)
+    REFERENCES `biblioteca`.`genero` (`id_genero`)
+    ON DELETE CASCADE,
+  CONSTRAINT `fk_editora_livros`
+	FOREIGN KEY (`editora_id`)
+    REFERENCES `biblioteca`.`editora` (`id_editora`)
+    ON DELETE CASCADE
+)
+ENGINE InnoDB;
